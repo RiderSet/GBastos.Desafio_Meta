@@ -9,11 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Domain", "2 - Domain", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Infra", "3 - Infra", "{ACD79DE8-668C-4695-A092-C724D5C54F1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GBastos.Desafio_Meta.ApplicationCore", "src\GBastos.Desafio_Meta.ApplicationCore\GBastos.Desafio_Meta.ApplicationCore.csproj", "{60B5742B-5FA4-43B5-B96A-42125BDEB42E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GBastos.Desafio_Meta.ApplicationCore", "src\GBastos.Desafio_Meta.ApplicationCore\GBastos.Desafio_Meta.ApplicationCore.csproj", "{60B5742B-5FA4-43B5-B96A-42125BDEB42E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GBastos.Desafio_Meta.Web", "src\GBastos.Desafio_Meta.Web\GBastos.Desafio_Meta.Web.csproj", "{99B96358-3E83-4433-92A3-B22AC0F3CD80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GBastos.Desafio_Meta.InfraEstructure", "src\GBastos.Desafio_Meta.InfraEstructure\GBastos.Desafio_Meta.InfraEstructure.csproj", "{1E1EDC6D-2AF1-4FC4-9953-22B011D2ABB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GBastos.Desafio_Meta.InfraEstructure", "src\GBastos.Desafio_Meta.InfraEstructure\GBastos.Desafio_Meta.InfraEstructure.csproj", "{1E1EDC6D-2AF1-4FC4-9953-22B011D2ABB4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GBastos.Desafio_Meta.Web", "src\GBastos.Desafio_Meta.Web\GBastos.Desafio_Meta.Web.csproj", "{27710F8F-ED4B-4BFE-813D-D6EE99F2C8BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,22 +25,22 @@ Global
 		{60B5742B-5FA4-43B5-B96A-42125BDEB42E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60B5742B-5FA4-43B5-B96A-42125BDEB42E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60B5742B-5FA4-43B5-B96A-42125BDEB42E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{99B96358-3E83-4433-92A3-B22AC0F3CD80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{99B96358-3E83-4433-92A3-B22AC0F3CD80}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{99B96358-3E83-4433-92A3-B22AC0F3CD80}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{99B96358-3E83-4433-92A3-B22AC0F3CD80}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1E1EDC6D-2AF1-4FC4-9953-22B011D2ABB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1E1EDC6D-2AF1-4FC4-9953-22B011D2ABB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E1EDC6D-2AF1-4FC4-9953-22B011D2ABB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E1EDC6D-2AF1-4FC4-9953-22B011D2ABB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27710F8F-ED4B-4BFE-813D-D6EE99F2C8BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27710F8F-ED4B-4BFE-813D-D6EE99F2C8BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27710F8F-ED4B-4BFE-813D-D6EE99F2C8BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27710F8F-ED4B-4BFE-813D-D6EE99F2C8BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{60B5742B-5FA4-43B5-B96A-42125BDEB42E} = {48CC979B-1BAA-4A56-A9C7-1F064C59C31A}
-		{99B96358-3E83-4433-92A3-B22AC0F3CD80} = {D6E07842-DA9A-4B44-A85E-05BBF9A61E3A}
 		{1E1EDC6D-2AF1-4FC4-9953-22B011D2ABB4} = {ACD79DE8-668C-4695-A092-C724D5C54F1A}
+		{27710F8F-ED4B-4BFE-813D-D6EE99F2C8BA} = {D6E07842-DA9A-4B44-A85E-05BBF9A61E3A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {208B3018-5E8F-493E-9041-B4253CC3BDD4}

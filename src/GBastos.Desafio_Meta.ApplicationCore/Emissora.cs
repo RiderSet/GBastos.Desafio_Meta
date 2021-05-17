@@ -21,10 +21,14 @@ namespace GBastos.Desafio_Meta.ApplicationCore
         public bool Validate()
         {
             bool isValid = true;
-            if (string.IsNullOrWhiteSpace(Nome))
-                isValid = false;
+            foreach (char e in Nome)
+            {
+                if (!char.IsControl(e) && !char.IsDigit(e) && (e != '.'))
+                {
+                    isValid = false;
+                }
+            }
             return isValid;
         }
-
     }
 }
