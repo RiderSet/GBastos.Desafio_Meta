@@ -1,71 +1,59 @@
 ﻿using GBastos.Desafio_Meta.InfraEstructure.Data;
 using GBastos.Desafio_Meta.InfraEstructure.Repositories.Interfaces.Genericos;
-using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
 namespace GBastos.Desafio_Meta.InfraEstructure.Repositories.Genericos
 {
-    public class Repositorio<T> : IRepositorio<T>, IDisposable where T : class
+    public class Repositorio<TEntity> : IRepositorio<TEntity>, IDisposable where TEntity : class
     {
         private Contexto CTX;
 
-        public Repositorio(Contexto cTX)        
+        public Repositorio()
         {
             CTX = new Contexto();
         }
 
-        public void Add(T entity)
+        public void Add(TEntity entity)
         {
-            CTX.Set<T>().Add(entity);
+            CTX.Set<TEntity>().Add(entity);
         }
 
-        public T First(Expression<Func<T, bool>> predicate)
+        public void AddRange(IEnumerable<TEntity> entities)
         {
-            return CTX.Set<T>().Where(predicate).FirstOrDefault();
-        }
-
-        public IQueryable<T> Get(Expression<Func<T, bool>> predicate)
-        {
-            return CTX.Set<T>().Where(predicate);
-        }
-
-        public IQueryable<T> GetAll()
-        {
-            return CTX.Set<T>();
-        }
-
-        public T Seek(params object[] key)
-        {
-            return CTX.Set<T>().Find(key);
-        }
-
-        public void Update(T entity)
-        {
-            CTX.Entry(entity).State = EntityState.Modified;
-        }
-
-        public void Commit()
-        {
-            CTX.SaveChanges();
-        }
-
-        public void Delete(Func<T, bool> predicate)
-        {
-            CTX.Set<T>()
-           .Where(predicate).ToList()
-           .ForEach(del => CTX.Set<T>().Remove(del));
+            CTX.Set<TEntity>().AddRange(entities); ;
         }
 
         public void Dispose()
         {
-            if (CTX != null)
-            {
-                CTX.Dispose();
-            }
-            GC.SuppressFinalize(this);
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> expression)
+        {
+            return CTX.Set<TEntity>().Where(expression);
+        }
+
+        public IEnumerable<TEntity> GetAll()
+        {
+            return CTX.Set<TEntity>().ToList();
+        }
+
+        public TEntity GetById(int id)
+        {
+            return CTX.Set<TEntity>().Find(id);
+        }
+
+        public void Remove(TEntity entity)
+        {
+            CTX.Set<TEntity>().Remove(entity);
+        }
+
+        public void RemoveRange(IEnumerable<TEntity> entities)
+        {
+            CTX.Set<TEntity>().RemoveRange(entities);
         }
     }
 }
-

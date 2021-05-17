@@ -1,13 +1,11 @@
-﻿using GBastos.Desafio_Meta.ApplicationCore;
-using GBastos.Desafio_Meta.InfraEstructure.Repositories.Interfaces.Genericos;
+﻿using System;
 
 namespace GBastos.Desafio_Meta.InfraEstructure.Repositories.Interfaces
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
-        IRepositorio<Audiencia> Audiencia_Rep { get; }
-        IRepositorio<Emissora> Emissora_Rep { get; }
-
-        void Commit();
+        IEmissora_Rep EmissoraRep { get; }
+        IAudiencia_Rep AudienciaRep { get; }
+        int Complete();
     }
 }

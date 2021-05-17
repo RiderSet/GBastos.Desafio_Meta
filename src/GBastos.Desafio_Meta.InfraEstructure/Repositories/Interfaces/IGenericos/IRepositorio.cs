@@ -1,19 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace GBastos.Desafio_Meta.InfraEstructure.Repositories.Interfaces.Genericos
 {
     public interface IRepositorio<T> where T : class
     {
-        IQueryable<T> GetAll();
-        IQueryable<T> Get(Expression<Func<T, bool>> predicate);
-        T Seek(params object[] key);
-        T First(Expression<Func<T, bool>> predicate);
+        T GetById(int id);
+        IEnumerable<T> GetAll();
+        IEnumerable<T> Find(Expression<Func<T, bool>> expression);
         void Add(T entity);
-        void Update(T entity);
-        void Delete(Func<T, bool> predicate);
-        void Commit();
-        void Dispose();
+        void AddRange(IEnumerable<T> entities);
+        void Remove(T entity);
+        void RemoveRange(IEnumerable<T> entities);
     }
 }

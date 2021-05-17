@@ -1,5 +1,6 @@
 ﻿using GBastos.Desafio_Meta.ApplicationCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GBastos.Desafio_Meta.InfraEstructure.Data
 {
@@ -21,9 +22,6 @@ namespace GBastos.Desafio_Meta.InfraEstructure.Data
         {
             modelBuilder.Entity<Emissora>().ToTable("Emissora");
             modelBuilder.Entity<Audiencia>().ToTable("Audiencia");
-
-            modelBuilder.Entity<Emissora>().ToTable("Emissora");
-            modelBuilder.Entity<Emissora>().ToTable("Audiencia");
         }
     }
 }
