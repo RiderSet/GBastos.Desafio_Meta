@@ -1,6 +1,7 @@
 ﻿using GBastos.Desafio_Meta.InfraEstructure.Data;
 using GBastos.Desafio_Meta.InfraEstructure.Repositories;
 using GBastos.Desafio_Meta.InfraEstructure.Repositories.Interfaces;
+using GBastos.Desafio_Meta.InfraEstructure.Repositories.Interfaces.IDAL;
 using System.Threading.Tasks;
 
 namespace GBastos.Desafio_Meta.InfraEstructure.DAL
@@ -8,6 +9,10 @@ namespace GBastos.Desafio_Meta.InfraEstructure.DAL
     public class UnitOfWork : IUnitOfWork
     {
         private readonly Contexto CTX;
+
+        public UnitOfWork()
+        {
+        }
 
         public UnitOfWork(Contexto context)
         {

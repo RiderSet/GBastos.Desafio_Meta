@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GBastos.Desafio_Meta.ApplicationCore.Models;
+using System;
 using System.Collections.Generic;
 
 namespace GBastos.Desafio_Meta.ApplicationCore.Interfaces

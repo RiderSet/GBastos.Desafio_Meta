@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GBastos.Desafio_Meta.ApplicationCore
+namespace GBastos.Desafio_Meta.ApplicationCore.Models
 {
     public class Audiencia
     {

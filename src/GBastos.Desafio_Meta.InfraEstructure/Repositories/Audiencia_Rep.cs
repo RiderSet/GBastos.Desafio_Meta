@@ -1,4 +1,4 @@
-﻿using GBastos.Desafio_Meta.ApplicationCore;
+﻿using GBastos.Desafio_Meta.ApplicationCore.Models;
 using GBastos.Desafio_Meta.InfraEstructure.Data;
 using GBastos.Desafio_Meta.InfraEstructure.Repositories.Genericos;
 using GBastos.Desafio_Meta.InfraEstructure.Repositories.Interfaces;
