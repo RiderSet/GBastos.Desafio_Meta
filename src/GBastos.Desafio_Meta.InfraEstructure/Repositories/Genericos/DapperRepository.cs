@@ -2,12 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace GBastos.Desafio_Meta.InfraEstructure.Repositories.Genericos
 {
     public class DapperRepository<TEntity> : IGenericRepository<TEntity>, IDisposable where TEntity : class
     {
         public TEntity Add(TEntity entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<TEntity> Addasync(TEntity entity)
         {
             throw new NotImplementedException();
         }

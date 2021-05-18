@@ -1,104 +1,135 @@
-﻿using GBastos.Desafio_Meta.ApplicationCore;
-using GBastos.Desafio_Meta.ApplicationCore.Models;
-using GBastos.Desafio_Meta.InfraEstructure.DAL;
+﻿using GBastos.Desafio_Meta.ApplicationCore.Models;
+using GBastos.Desafio_Meta.ApplicationCore.Services;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Net;
-using System.Web.Mvc;
+using System.Data.Entity.Infrastructure;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
-namespace GBastos.Desafio_Meta.Web.Controllers
+namespace Layer.Architecture.Application.Controllers
 {
-    public class EmissoraController : System.Web.Mvc.Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class EmissoraController : Controller
     {
-        private readonly UnitOfWork uwk;
+        private EmissoraService emissoraService;
 
-        public EmissoraController()
+        public EmissoraController(EmissoraService emService)
         {
-            uwk = new UnitOfWork();
+            emissoraService = emService;
         }
 
-        public EmissoraController(UnitOfWork unitOfWork)
+        // GET: Emissora
+        public Task<IEnumerable<Emissora>> Index()
         {
-            uwk = unitOfWork;
+            return (Task<IEnumerable<Emissora>>)emissoraService.GetAll();
         }
 
-        ////
-        //// GET: /Emissora/
-        //public IActionResult Index()
-        //{
-        //    List<Emissora> emissora = uwk.EmissoraRep.GetAll().ToList();
-        //    return View(emissora);
-        //}
+        [HttpPost]
+        public async Task<ActionResult<Emissora>> PostEmissora(Emissora emissora)
+        {
+            var emis = emissoraService.Get(x => x.Id == emissora.Id);
+            if (emis != null)
+            {
+                return BadRequest("Emissora já existente.");
+            }
 
+            if (VerifyInput(emissora.Nome) == true)
+            {
+                throw new InvalidOperationException("Caracteres especiais detectados no nome da Emissora.");
+            }
 
-        //// GET: Usuario/Details/5
-        //public ActionResult Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Emissora emissora = uwk.EmissoraRep.GetById(id); //db.Usuarios.Find(id);
-        //    if (emissora == null)
-        //    {
-        //        return HttpNotFoundResult();
-        //    }
-        //    return View(emissora);
-        //}
+            emissoraService.Add(emissora);
+            await emissoraService.Addasync(emissora);
 
+            //return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
+            return CreatedAtAction(nameof(Get), new { id = emissora.Id }, emissora);
+        }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "Id, Nome")] Emissora emissora)
-        //{
-        //    try
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            uwk.EmissoraRep.Add(emissora);
-        //            return RedirectToAction("Index");
-        //        }
-        //    }
-        //    catch (DataException /* dex */)
-        //    {
-        //        //Log the error (uncomment dex variable name after DataException and add a line here to write a log.)
-        //        ModelState.AddModelError("", "Não foi possível procedercom esta aleração. Se o problema persisir, contate o administrador.");
-        //    }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateEmissora(int id)
+        {
 
-        //    return View(emissora);
-        //}
+            var emissora = emissoraService.GetById(id);
+            if (emissora == null)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                await emissoraService.Addasync(emissora);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(
-        //     [Bind(Include = "CourseID,Title,Credits,DepartmentID")] Emissora emissora)
-        //{
-        //    try
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            uwk.CourseRepository.Update(course);
-        //            uwk.Save();
-        //            return RedirectToAction("Index");
-        //        }
-        //    }
-        //    catch (DataException /* dex */)
-        //    {
-        //        //Log the error (uncomment dex variable name after DataException and add a line here to write a log.)
-        //        ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
-        //    }
-        //    PopulateDepartmentsDropDownList(course.DepartmentID);
-        //    return View(course);
-        //}
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            if (id == 0)
+                return NotFound();
 
-        //private void PopulateDepartmentsDropDownList(object selectedDepartment = null)
-        //{
-        //    var departmentsQuery = unitOfWork.DepartmentRepository.Get(
-        //        orderBy: q => q.OrderBy(d => d.Name));
-        //    ViewBag.DepartmentID = new SelectList(departmentsQuery, "DepartmentID", "Name", selectedDepartment);
-        //}
+            Emissora emissora = emissoraService.GetById(id);
+            Execute(() =>
+            {
+                emissoraService.Delete(emissora);
+                return true;
+            });
 
+            return new NoContentResult();
+        }
+
+        [HttpGet]
+        public IActionResult Get(Expression<Func<Emissora, bool>> predicate)
+        {
+            return Execute(() => emissoraService.Get(predicate));
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            if (id == 0)
+                return NotFound();
+
+            return Execute(() => emissoraService.GetById(id));
+        }
+
+        private IActionResult Execute(Func<object> func)
+        {
+            try
+            {
+                var result = func();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        private static bool VerifyInput(string strIn)
+        {
+            bool retorno = false;
+            string pattern = @"(?i)[^0-9a-záéíóúàèìòùâêîôûãõç\s]";
+            string[] input = strIn.Split();
+            string []especiais = pattern.Split();
+
+            foreach (var a in input)
+            {
+                foreach (var b in especiais)
+                { 
+                    if(a == b)
+                    {
+                        retorno = true;
+                    }
+                }
+            }
+            return retorno;
+        }
     }
 }

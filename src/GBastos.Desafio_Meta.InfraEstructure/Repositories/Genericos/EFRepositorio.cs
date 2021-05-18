@@ -1,10 +1,11 @@
 ﻿using GBastos.Desafio_Meta.ApplicationCore.Interfaces.Repositories;
+using GBastos.Desafio_Meta.InfraEstructure.DAL;
 using GBastos.Desafio_Meta.InfraEstructure.Data;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace GBastos.Desafio_Meta.InfraEstructure.Repositories.Genericos
 {
@@ -17,6 +18,8 @@ namespace GBastos.Desafio_Meta.InfraEstructure.Repositories.Genericos
             CTX = contexto;
         }
 
+        protected readonly UnitOfWork UWK;
+
         public virtual TEntity Add(TEntity entity)
         {
             CTX.Set<TEntity>().Add(entity);
@@ -24,9 +27,15 @@ namespace GBastos.Desafio_Meta.InfraEstructure.Repositories.Genericos
             return entity;
         }
 
+        public async Task<TEntity> Addasync(TEntity entity)
+        {
+            await CTX.Set<TEntity>().AddAsync(entity);
+            return entity;
+        }
+
         public virtual void Update(TEntity entity)
         {
-            CTX.Entry(entity).State = (Microsoft.EntityFrameworkCore.EntityState)EntityState.Modified;
+            CTX.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             CTX.SaveChanges();
         }
 
