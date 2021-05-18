@@ -167,7 +167,7 @@ namespace Layer.Architecture.Application.Controllers
             if (id == 0)
                 return NotFound();
 
-            return (IActionResult)audienciaService.GetById(id));
+            return (IActionResult)audienciaService.GetById(id);
         }
     }
 }

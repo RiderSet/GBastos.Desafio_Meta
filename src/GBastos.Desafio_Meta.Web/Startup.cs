@@ -1,4 +1,5 @@
 using GBastos.Desafio_Meta.ApplicationCore.Interfaces;
+using GBastos.Desafio_Meta.InfraEstructure.DAL;
 using GBastos.Desafio_Meta.InfraEstructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,7 +25,7 @@ namespace GBastos.Desafio_Meta.Web
             services.AddDbContext<Contexto>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddTransient<IUnitOfWork, IUnitOfWork>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddControllersWithViews();
         }
 
