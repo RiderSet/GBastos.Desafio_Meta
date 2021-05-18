@@ -1,7 +1,7 @@
-﻿using GBastos.Desafio_Meta.InfraEstructure.Data;
+﻿using GBastos.Desafio_Meta.ApplicationCore.Interfaces;
+using GBastos.Desafio_Meta.ApplicationCore.Interfaces.Repositories;
+using GBastos.Desafio_Meta.InfraEstructure.Data;
 using GBastos.Desafio_Meta.InfraEstructure.Repositories;
-using GBastos.Desafio_Meta.InfraEstructure.Repositories.Interfaces;
-using GBastos.Desafio_Meta.InfraEstructure.Repositories.Interfaces.IDAL;
 using System.Threading.Tasks;
 
 namespace GBastos.Desafio_Meta.InfraEstructure.DAL
@@ -14,19 +14,19 @@ namespace GBastos.Desafio_Meta.InfraEstructure.DAL
         {
         }
 
-        public UnitOfWork(Contexto context)
-        {
-            CTX = context;
-            EmissoraRep = new Emissora_Rep(CTX);
-            AudienciaRep = new Audiencia_Rep(CTX);
-        }
-
         public IEmissora_Rep EmissoraRep { get; private set; }
         public IAudiencia_Rep AudienciaRep { get; private set; }
 
+        public UnitOfWork(Contexto context)
+        {
+            CTX = context;
+            EmissoraRep = new EmissoraRepository(CTX);
+            AudienciaRep = new AudienciaRepository(CTX);
+        }
+
         public Task<int> CommitAsync()
         {
-            throw new System.NotImplementedException();
+            return CTX.SaveChangesAsync();
         }
 
         public int Complete()

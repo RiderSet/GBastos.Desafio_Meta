@@ -16,7 +16,7 @@ namespace GBastos.Desafio_Meta.ApplicationCore.Models
         public int Id { get; set; }
         public string Nome { get; set; }
 
-        public List<Audiencia> Audiencias { get; set; }
+        public ICollection<Audiencia> Audiencias { get; set; }
 
         public bool Validate()
         {

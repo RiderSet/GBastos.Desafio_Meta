@@ -22,9 +22,6 @@ namespace GBastos.Desafio_Meta.InfraEstructure.Data
             modelBuilder.Entity<Emissora>().ToTable("Emissora");
             modelBuilder.Entity<Audiencia>().ToTable("Audiencia");
 
-            modelBuilder.Entity<Emissora>().Property(e => e.Nome)
-                .HasColumnType("varchar(100)")
-                .IsRequired();
         }
     }
 }

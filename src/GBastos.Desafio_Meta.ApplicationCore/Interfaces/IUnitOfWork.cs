@@ -1,6 +1,7 @@
-﻿using System;
+﻿using GBastos.Desafio_Meta.ApplicationCore.Interfaces.Repositories;
+using System;
 
-namespace GBastos.Desafio_Meta.InfraEstructure.Repositories.Interfaces.IDAL
+namespace GBastos.Desafio_Meta.ApplicationCore.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
